@@ -22,6 +22,7 @@ $this->registerJsFile("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",['p
                     <label for="body">Body</label>
                     <input v-model="post.body" type="text" name="body" id="body" class="form-control" placeholder="Ingrese el cuerpo del Post" aria-describedby="helpId">
                     <small id="bodyhelpId" class="text-muted"></small>
+                    <span></span>
                 </div>
                 <button v-if="isNewRecord"  @click="addPost()" type="button" class="btn btn-primary m-3">Crear</button>
                 <button v-if="!isNewRecord"  @click="post={}" type="button" class="btn btn-success m-3">Nuevo</button>
@@ -83,6 +84,7 @@ $this->registerJsFile("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",['p
                     .then(function (response) {
                         // handle success
                         console.log(response.data);
+                        console.log("trage todo los posts");
                         self.posts = response.data;
                     })
                     .catch(function (error) {
@@ -98,6 +100,7 @@ $this->registerJsFile("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",['p
                 axios.delete('/apiv1/posts/'+id)
                     .then(function (response) {
                         // handle success
+                        console.log("borre post id: "+ id);
                         console.log(response.data);
                         self.getPosts();
                     })
@@ -116,19 +119,21 @@ $this->registerJsFile("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",['p
             },
             addPost: function(){
                 var self = this;
-                const params = new URLSearchParams();
-                params.append('title', self.post.title);
-                params.append('body', self.post.body);
-                axios.post('/apiv1/posts',params)
+                // const params = new URLSearchParams();
+                // params.append('title', self.post.title);
+                // params.append('body', self.post.body);
+                axios.post('/apiv1/posts',self.post)
                     .then(function (response) {
                         // handle success
                         console.log(response.data);
-                        self.posts.unshift(response.data);
+                        self.getPosts()
+                        // self.posts.unshift(response.data);
                         self.post = {};
                     })
                     .catch(function (error) {
                         // handle error
                         console.log(error);
+
                     })
                     .then(function () {
                         // always executed

@@ -27,16 +27,16 @@ class PostController extends ActiveController
         $behaviors = parent::behaviors();
 
         // remove authentication filter
-        $auth = $behaviors['authenticator'];
-        unset($behaviors['authenticator']);
+//        $auth = $behaviors['authenticator'];
+//        unset($behaviors['authenticator']);
 
         // add CORS filter
-        $behaviors['corsFilter'] = [
-            'class' => \yii\filters\Cors::className(),
-        ];
+//        $behaviors['corsFilter'] = [
+//            'class' => \yii\filters\Cors::className(),
+//        ];
 
         // re-add authentication filter
-        $behaviors['authenticator'] = $auth;
+//        $behaviors['authenticator'] = $auth;
 
 //        $behaviors['authenticator'] = [
 //            'class' => CompositeAuth::className(),
