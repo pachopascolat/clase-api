@@ -48,7 +48,7 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             [['title','body'],'required'],
-            [['body'], 'string'],
+//            [['body'], 'integer'],
             [['created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
