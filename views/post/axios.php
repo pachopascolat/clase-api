@@ -118,10 +118,7 @@ $this->registerJsFile("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",['p
                 currentPage: 1,
                 pagination:{},
                 filter:{},
-                errors: [
-                    // {title:"error de title"},
-                    // {body:"error de body"}
-                ],
+                errors: {},
                 msg: "Posts",
                 posts: [],
                 post:{},
@@ -138,7 +135,7 @@ $this->registerJsFile("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",['p
         },
         methods: {
             normalizeErrors: function(errors){
-              var allErrors = [];
+              var allErrors = {};
               for(var i = 0 ; i < errors.length; i++ ){
                   allErrors[errors[i].field] = errors[i].message;
               }
