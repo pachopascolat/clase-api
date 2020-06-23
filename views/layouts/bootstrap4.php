@@ -5,12 +5,12 @@
 
 use app\widgets\Alert;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -32,11 +32,13 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-dark',
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => [
+            'class' => 'navbar navbar-nav w-100 justify-content-end',
+        ],
         'items' => [
             ['label' => 'Post', 'url' => ['/post/axios']],
             ['label' => 'Comment', 'url' => ['/comment/axios']],
@@ -59,10 +61,7 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
+
         <?= $content ?>
     </div>
 </div>

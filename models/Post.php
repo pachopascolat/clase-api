@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "post".
@@ -83,6 +84,37 @@ class Post extends \yii\db\ActiveRecord
     public function getCreatorName(){
         return $this->creator->username;
     }
+
+
+    public function getRelationData() {
+        $ARMethods = get_class_methods('\yii\db\ActiveRecord');
+        $modelMethods = get_class_methods('\yii\base\Model');
+        $reflection = new \ReflectionClass($this);
+        $i = 0;
+        $stack = [];
+        /* @var $method \ReflectionMethod */
+        foreach ($reflection->getMethods() as $method) {
+            if (in_array($method->name, $ARMethods) || in_array($method->name, $modelMethods)) {
+                continue;
+            }
+            if($method->name === 'bindModels')  {continue;}
+            if($method->name === 'attachBehaviorInternal')  {continue;}
+            if($method->name === 'getRelationData')  {continue;}
+            try {
+                $rel = call_user_func(array($this,$method->name));
+                if($rel instanceof ActiveQuery){
+                    $stack[$i]['name'] = lcfirst(str_replace('get', '', $method->name));
+                    $stack[$i]['method'] = $method->name;
+                    $stack[$i]['ismultiple'] = $rel->multiple;
+                    $i++;
+                }
+            } catch (\yii\base\ErrorException $exc) {
+//
+            }
+        }
+        return $stack;
+    }
+
 
 }
 

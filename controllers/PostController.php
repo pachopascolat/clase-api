@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\modules\apiv1\models\Post;
+use yii\rest\Serializer;
+
 class PostController extends \yii\web\Controller
 {
     public function actionIndex()
@@ -10,7 +13,11 @@ class PostController extends \yii\web\Controller
     }
     public function actionAxios()
     {
-        return $this->render('axios');
+        $this->layout = 'bootstrap4';
+        $model = new Post();
+        return $this->render('axios',[
+            'model'=>$model,
+        ]);
     }
 
 }

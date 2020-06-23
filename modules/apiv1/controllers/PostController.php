@@ -4,11 +4,14 @@
 namespace app\modules\apiv1\controllers;
 
 
-use app\models\PostSearch;
 use app\models\User;
 use app\modules\apiv1\models\Post;
+use app\modules\apiv1\models\PostSearch;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\data\ActiveDataFilter;
+use yii\data\ActiveDataProvider;
+use yii\data\DataFilter;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
@@ -65,14 +68,16 @@ class PostController extends ActiveController
     {
         $actions = parent::actions();
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+//        $actions['index']['dataFilter'] = ['class'=>ActiveDataFilter::class,'searchModel' => Post::class];
         return $actions;
     }
 
+
+
     public function prepareDataProvider()
     {
-        $searchModel = new PostSearch();
+        $searchModel = new Post();
         $dataProvider =  $searchModel->search(Yii::$app->request->queryParams);
-
         return $dataProvider;
     }
 

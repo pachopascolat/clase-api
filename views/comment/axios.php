@@ -18,8 +18,9 @@ echo $this->render('/components/ModelCrud');
 <div id="app">
     <crud
             v-bind:model="model"
-            v-bind:modelname="modelname"
             v-bind:fields="fields"
+            v-bind:modelname="modelname"
+
     ></crud>
 </div>
 
@@ -32,9 +33,9 @@ echo $this->render('/components/ModelCrud');
         },
         data:{
             model: <?= json_encode($model->getAttributes()) ?>,
-            //relates: <?//= json_encode($model->getRelationData()) ?>//,
-            //rules: <?//= json_encode($model->rules()) ?>//,
-            fields: ['id','title','body','comments'] , //poner en un array los campos que queres
+            //rules: <?//= json_encode($model->getRelatedRecords()) ?>//,
+            //relations: <?//= json_encode($model->rules()) ?>//,
+            fields: ['id','title','body','post'], // poner en un array los campos que queres
             modelname: <?= json_encode($model::tableName())?>,
         }
     })
