@@ -12,7 +12,7 @@ use yii\rest\ActiveController;
 
 class CommentController extends ActiveController
 {
-    public $modelClass = CommentSearch::class;
+    public $modelClass = Comment::class;
 
 
     public function actions()

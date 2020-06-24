@@ -8,7 +8,7 @@
                     <div v-if="i>0" v-for="(field,i) in modelfields" class="form-group">
                         <label :for="field">{{field}}</label>
                         <input v-model="activemodel[field]" type="text" :name="field" :id="field" class="form-control" :placeholder="'Ingrese el '+ field " aria-describedby="helpId">
-                        <span class="text-danger" v-if="errors[field]" >{{errors.field}}</span>
+                        <span class="text-danger" v-if="errors[field]" >{{errors[field]}}</span>
                     </div>
                 </form>
             </div>
@@ -123,6 +123,7 @@
             // },
             getModels: function(){
                 var self = this;
+                self.errors = {};
                 // var filters = self.normalizeFilters();
                 axios.get('/apiv1/'+self.modelname+'?page='+self.currentPage,{params:self.filter})
                     .then(function (response) {
