@@ -10,17 +10,17 @@ $this->registerJsFile("https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue
 //$this->registerJsFile("https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js",['position'=>$this::POS_HEAD]);
 $this->registerJsFile("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",['position'=>$this::POS_HEAD]);
 
-echo $this->render('/components/ModelCrud');
+echo $this->render('/components/PostCrud');
 ?>
 
 
 
 <div id="app">
-    <crud
+    <post
             v-bind:model="model"
             v-bind:modelname="modelname"
             v-bind:fields="fields"
-    ></crud>
+    ></post>
 </div>
 
 <script>
@@ -28,13 +28,13 @@ echo $this->render('/components/ModelCrud');
     var app = new Vue({
         el: "#app",
         components:{
-            crud: Crud,
+            post: Post,
         },
         data:{
             model: <?= json_encode($model->getAttributes()) ?>,
             //relates: <?//= json_encode($model->getRelationData()) ?>//,
             //rules: <?//= json_encode($model->rules()) ?>//,
-            fields: ['id','title','body','comments'] , //poner en un array los campos que queres
+            fields: ['id','title','body'] , //poner en un array los campos que queres
             modelname: <?= json_encode($model::tableName())?>,
         }
     })
